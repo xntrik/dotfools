@@ -12,6 +12,7 @@ call pathogen#helptags()
 "------------------
 syntax on " turn on syntax highlighting
 set showmatch " show matching braces when text indicator is over them
+set colorcolumn=80 " column marker
 
 " highlight current line, but only in active window
 augroup CursorLineOnlyInActiveWindow
@@ -31,17 +32,17 @@ else
     let g:solarized_termcolors=256 " instead of 16 color with mapping in terminal
     colorscheme solarized
     " customized colors
-    highlight SignColumn ctermbg=234
-    highlight StatusLine cterm=bold ctermfg=245 ctermbg=235
-    highlight StatusLineNC cterm=bold ctermfg=245 ctermbg=235
-    let g:NeatStatusLine_color_normal='ctermfg=64 ctermbg=235 cterm=bold'
-    let g:NeatStatusLine_color_insert='ctermfg=136 ctermbg=235 cterm=bold'
-    let g:NeatStatusLine_color_replace='ctermfg=160 ctermbg=235 cterm=bold'
-    let g:NeatStatusLine_color_visual='ctermfg=33 ctermbg=235 cterm=bold'
-    let g:NeatStatusLine_color_position='ctermfg=245 ctermbg=235 cterm=bold'
-    let g:NeatStatusLine_color_modified='ctermfg=166 ctermbg=235 cterm=bold'
-    let g:NeatStatusLine_color_line='ctermfg=61 ctermbg=235 cterm=bold'
-    let g:NeatStatusLine_color_filetype='ctermfg=37 ctermbg=235 cterm=bold'
+    "highlight SignColumn ctermbg=234
+    "highlight StatusLine cterm=bold ctermfg=245 ctermbg=235
+    "highlight StatusLineNC cterm=bold ctermfg=245 ctermbg=235
+    "let g:NeatStatusLine_color_normal='ctermfg=64 ctermbg=235 cterm=bold'
+    "let g:NeatStatusLine_color_insert='ctermfg=136 ctermbg=235 cterm=bold'
+    "let g:NeatStatusLine_color_replace='ctermfg=160 ctermbg=235 cterm=bold'
+    "let g:NeatStatusLine_color_visual='ctermfg=33 ctermbg=235 cterm=bold'
+    "let g:NeatStatusLine_color_position='ctermfg=245 ctermbg=235 cterm=bold'
+    "let g:NeatStatusLine_color_modified='ctermfg=166 ctermbg=235 cterm=bold'
+    "let g:NeatStatusLine_color_line='ctermfg=61 ctermbg=235 cterm=bold'
+    "let g:NeatStatusLine_color_filetype='ctermfg=37 ctermbg=235 cterm=bold'
 endif
 
 filetype plugin indent on " enable file type detection
@@ -58,7 +59,7 @@ exec "set listchars=tab:>>,nbsp:~"
 set lbr " line break
 set ruler " show current position in file
 set scrolloff=5 " show lines above and below cursor (when possible)
-"set noshowmode " hide mode
+set noshowmode " hide mode
 set laststatus=2
 set backspace=indent,eol,start " allow backspacing over everything
 set timeout timeoutlen=1000 ttimeoutlen=100 " fix slow O inserts
@@ -106,6 +107,9 @@ nnoremap <Down> :echoe "Use j"<CR>
 " toggle NERDTree
 nnoremap <C-n> :NERDTreeToggle<CR>
 
+" toggle Tagbar
+nmap <F8> :TagbarToggle<CR>
+
 "---------------------
 " Plugin configuration
 "---------------------
@@ -128,6 +132,9 @@ nnoremap K :Gag "\b<C-R><C-W>\b"<CR>:cw<CR>
 if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
+
+" airline powerline fonts
+let g:airline_powerline_fonts = 1
 
 "---------------------
 " Local customizations
