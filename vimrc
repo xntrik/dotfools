@@ -30,7 +30,8 @@ if &t_Co < 256
 else
     set background=dark
     let g:solarized_termcolors=256 " instead of 16 color with mapping in terminal
-    colorscheme solarized
+    "colorscheme solarized
+    colorscheme gruvbox
     " customized colors
     "highlight SignColumn ctermbg=234
     "highlight StatusLine cterm=bold ctermfg=245 ctermbg=235
@@ -63,7 +64,7 @@ set noshowmode " hide mode
 set laststatus=2
 set backspace=indent,eol,start " allow backspacing over everything
 set timeout timeoutlen=1000 ttimeoutlen=100 " fix slow O inserts
-set autochdir " automatically set current directory to directory of last opened file
+set noautochdir " automatically set current directory to directory of last opened file
 set hidden " allow auto-hiding of edited buffers
 set history=8192 " more history
 set nojoinspaces " suppress inserting two spaces between sentences
@@ -108,7 +109,21 @@ nnoremap <Down> :echoe "Use j"<CR>
 nnoremap <C-n> :NERDTreeToggle<CR>
 
 " toggle Tagbar
-nmap <F8> :TagbarToggle<CR>
+nmap <F12> :TagbarToggle<CR>
+
+" tab selection
+nmap <F1> :tabn 1<CR>
+nmap <F2> :tabn 2<CR>
+nmap <F3> :tabn 3<CR>
+nmap <F4> :tabn 4<CR>
+nmap <F5> :tabn 5<CR>
+nmap <F6> :tabn 6<CR>
+nmap <F7> :tabn 7<CR>
+nmap <F8> :tabn 8<CR>
+nmap <F9> :tabn 9<CR>
+nmap <F10> :tabn 10<CR>
+nmap <F11> :tabl<CR>
+nmap <C-t> :tabnew<CR>
 
 "---------------------
 " Plugin configuration
@@ -135,6 +150,8 @@ endif
 
 " airline powerline fonts
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#branch#enabled = 1
 
 "---------------------
 " Local customizations
