@@ -52,6 +52,7 @@ set autoindent
 "---------------------
 " Basic editing config
 "---------------------
+let mapleader=","
 set nu " number lines
 "set rnu " relative line numbering
 set incsearch " incremental search (as string is being typed)
