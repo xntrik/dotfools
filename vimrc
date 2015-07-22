@@ -106,12 +106,6 @@ nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 
-" toggle NERDTree
-nnoremap <C-n> :NERDTreeToggle<CR>
-
-" toggle Tagbar
-nmap <F12> :TagbarToggle<CR>
-
 " tab selection
 nmap <F1> :tabn 1<CR>
 nmap <F2> :tabn 2<CR>
@@ -130,11 +124,11 @@ nmap <C-t> :tabnew<CR>
 " Plugin configuration
 "---------------------
 
-" tagbar
-nnoremap <C-\> :TagbarToggle<CR>
+" toggle NERDTree
+nnoremap <C-n> :NERDTreeToggle<CR>
 
-" gundo
-nnoremap <Leader>u :GundoToggle<CR>
+" toggle Tagbar
+nmap <F12> :TagbarToggle<CR>
 
 " ctrlp
 nnoremap ; :CtrlPBuffer<CR>
@@ -153,6 +147,10 @@ endif
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#branch#enabled = 1
+
+" Buffergator cycling
+nmap <Leader>v :BuffergatorMruCyclePrev<CR>
+nmap <Leader>n :BuffergatorMruCycleNext<CR>
 
 "---------------------
 " Local customizations
