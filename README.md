@@ -7,6 +7,7 @@ Includes tmux, tmuxinator, vim, zsh
 Mental note, how I've added various sub-modules is through the steps defined at http://usevim.com/2012/03/01/using-pathogen-with-git-submodules/
 
 Paraphrased here:
+
     # to add a module
     cd dotfools
     git submodule init
