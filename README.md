@@ -50,3 +50,11 @@ Paraphrased here (although I used *newer* versions than this):
     # close your terminal window (flushes cached tmux executable)
     # open new shell and check tmux version
     tmux -V
+
+Getting existing vim configuration to work with nvim requires the following:
+1. Copy vimrc to ~/.vimrc
+2. Create ~/.vim/ folder
+3. Symlink vimrc `ln -sf /home/ec2-user/.vimrc init.vim`
+4. Continue to setup the autoload and bundle subfolders
+5. Create a ~/.config/ folder
+6. Symlink the ~/.vim/ folder in there `ln -sf /home/ec2-user/.vim nvim`
