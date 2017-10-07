@@ -51,6 +51,8 @@ Paraphrased here (although I used *newer* versions than this):
     # open new shell and check tmux version
     tmux -V
 
+For OSX - tmux (with the tmux_local) config will look ugly, because iTerm2 doesn't have the nice fonts. I followed the steps from https://coderwall.com/p/yiot4q/setup-vim-powerline-and-iterm2-on-mac-os-x to get my setup nice/consistent. Mostly this involves getting fonts from https://github.com/Lokaltog/powerline-fonts and then setting them up in text settings for iTerm2.
+
 Getting existing vim configuration to work with nvim requires the following:
 1. Copy vimrc to ~/.vimrc
 2. Create ~/.vim/ folder
