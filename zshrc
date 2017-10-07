@@ -4,7 +4,7 @@ load_aliases
 load_lol_aliases
 load_completion $yourdotfiles/zshuery/completion
 load_correction
-source /usr/local/bin/aws_zsh_completer.sh
+#source /usr/local/bin/aws_zsh_completer.sh
 
 prompts '%{$fg_bold[yellow]%}$(COLLAPSED_DIR)%{$reset_color%}$(virtualenv_info) %{$fg[yellow]%}$(prompt_char)%{$reset_color%} ' '%{$fg[yellow]%}$(ruby_version)%{$reset_color%}'
 
@@ -25,4 +25,4 @@ if [ -f ~/.zshrc-alias ]; then
     source ~/.zshrc-alias
 fi
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+#export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
