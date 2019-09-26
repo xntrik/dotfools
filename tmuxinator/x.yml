@@ -1,7 +1,0 @@
-# ~/.tmuxinator/.yml
-# you can make as many tabs as you wish...
-
-name: x
-root: ~/
-windows:
-  - shell: #  

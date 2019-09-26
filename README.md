@@ -2,6 +2,15 @@
 
 This is an archive of how I normally setup my terminal/workstation/whatever.
 
+CHANGES 26th September 2019
+This is now just a tmux setup. I don't use the zshrc or zshuery stuff anymore.
+
+On OSX, brew happens to install the latest tmux, nvim etc. And then using pyenv I setup Python3 globally. This tmux and tmux_local setup has been tested on tmux 2.9a.
+
+Then I install vim from github.com/xntrik/vim
+
+ARCHIVE STUFF BELOW HERE
+
 Includes tmux, tmuxinator, zsh
 
 For (n)vim see: https://github.com/xntrik/vim
