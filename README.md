@@ -2,6 +2,12 @@
 
 This is an archive of how I normally setup my terminal/workstation/whatever.
 
+Update 29/9/21
+Make sure you clone https://github.com/jimeh/tmux-themepack
+Then ensure you have https://github.com/ohmyzsh/ohmyzsh
+And then use this .tmux.conf and zshrc file.
+
+
 CHANGES 26th September 2019
 This is now just a tmux setup. I don't use the zshrc or zshuery stuff anymore.
 
