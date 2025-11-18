@@ -14,7 +14,20 @@ require("paq")({
   "vim-airline/vim-airline",
   "vim-airline/vim-airline-themes",
   "fatih/vim-go",
-  "jeetsukumaran/vim-buffergator"
+  "jeetsukumaran/vim-buffergator",
+  "ibhagwan/fzf-lua",
+  "nvim-lua/plenary.nvim",
+  "sindrets/diffview.nvim",
+  "NeogitOrg/neogit",
+
+  -- completions
+  "hrsh7th/cmp-nvim-lsp",
+  "hrsh7th/cmp-buffer",
+  "hrsh7th/cmp-path",
+  "hrsh7th/cmp-cmdline",
+  "hrsh7th/nvim-cmp",
+  "hrsh7th/cmp-vsnip",
+  "hrsh7th/vim-vsnip",
 })
 
 function map(mode, lhs, rhs, opts)
@@ -47,7 +60,6 @@ vim.cmd([[colorscheme gruvbox]])
 vim.g.mapleader = " " -- leader key is space
 map('i', 'jk', '<ESC>') -- a quick jk to hit ESC
 map('n', '<leader>f', ':Files!<CR>') -- fuzzy file search
-map('n', '<leader>g', 'RG!<CR>') -- fuzzy file grep
 map('n', '<C-n>', ':NERDTreeToggle<CR>') -- show nerdtree
 vim.g.NERDTreeShowHidden = "1" -- show hidden files
 map('n', '<C-j>', '<C-w>j') -- ctrl movement around splits
@@ -65,9 +77,84 @@ map('n', '<leader>m', ':NERDTreeClose<CR> <bar> :call zoom#toggle()<CR>')
 map('n', '<leader>v', ':BuffergatorMruCyclePrev<CR>')
 map('n', '<leader>n', ':BuffergatorMruCycleNext<CR>')
 
+-- Neogit keymap
+local neogit = require('neogit')
+vim.keymap.set(
+  "n",
+  "<leader>g",
+  function() neogit.open({kind = "split"}) end,
+  { desc = "Open Neogit UI" }
+)
+
 -- The following is for airline
 vim.g.airline_powerline_fonts = "1"
 vim.g["airline#extensions#branch#enabled"] = "1"
 vim.g["airline#extensions#whitespace#enabled"] = "1"
 vim.g["airline_theme"] = "base16"
+
+vim.lsp.config('*', {
+  capabilities = {
+    textDocument = {
+      semanticTokens = {
+        multilineTokenSupport = true,
+      }
+    }
+  }
+})
+
+vim.lsp.enable('gopls')
+
+--- from https://github.com/hrsh7th/nvim-cmp/wiki/Language-Server-Specific-Samples
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+local feedkey = function(key, mode)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+end
+
+local cmp = require('cmp')
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+    end,
+  },
+  mapping = {
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif vim.fn["vsnip#available"](1) == 1 then
+        feedkey("<Plug>(vsnip-expand-or-jump)", "")
+      elseif has_words_before() then
+        cmp.complete()
+      else
+        fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+      end
+    end, { "i", "s" }),
+    ["<S-Tab>"] = cmp.mapping(function()
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+        feedkey("<Plug>(vsnip-jump-prev)", "")
+      end
+    end, { "i", "s" }),
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'vsnip' }, -- For vsnip users.
+  }, {
+    { name = 'buffer' },
+  })
+})
+local capabilities = require('cmp_nvim_lsp').default_capabilities() --nvim-cmp
+
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+end
 
