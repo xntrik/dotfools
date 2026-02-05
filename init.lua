@@ -19,6 +19,9 @@ require("paq")({
   "nvim-lua/plenary.nvim",
   "sindrets/diffview.nvim",
   "NeogitOrg/neogit",
+  "nvim-tree/nvim-web-devicons",
+  "nvim-treesitter/nvim-treesitter",
+  "MeanderingProgrammer/render-markdown.nvim",
 
   -- completions
   "hrsh7th/cmp-nvim-lsp",
@@ -103,6 +106,8 @@ vim.lsp.config('*', {
 })
 
 vim.lsp.enable('gopls')
+vim.lsp.enable('svelte')
+vim.lsp.enable('ts_ls')
 
 --- from https://github.com/hrsh7th/nvim-cmp/wiki/Language-Server-Specific-Samples
 local has_words_before = function()
@@ -158,3 +163,8 @@ local on_attach = function(client, bufnr)
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
 
+vim.api.nvim_create_autocmd("FileType", {
+    callback = function()
+      pcall(vim.treesitter.start)
+    end
+  })
