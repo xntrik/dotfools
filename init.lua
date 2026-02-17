@@ -56,6 +56,8 @@ vim.opt.expandtab = true
 vim.opt.softtabstop = 2
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
 -- use gruvbox theme
 vim.cmd([[colorscheme gruvbox]])
