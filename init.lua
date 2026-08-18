@@ -58,6 +58,8 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+-- vim.opt.foldmethod = "expr"
+-- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 -- use gruvbox theme
 vim.cmd([[colorscheme gruvbox]])
@@ -74,6 +76,7 @@ map('n', '<C-l>', '<C-w>l') -- ctrl movement around splits
 map('n', '<leader>p', ':CtrlPBuffer<CR>') -- open CtrolP buffer
 map('n', '<leader>r', ':set inrelativenumber<CR>') -- toggle relative number
 map('n', '<leader>h', ':noh<CR>') -- toggle highlight
+map('n', '<leader>c', ':tabc<CR>') -- close tabs
 
 -- close NERDTree then use vim-zoom to zoom current split
 map('n', '<leader>m', ':NERDTreeClose<CR> <bar> :call zoom#toggle()<CR>')
@@ -89,6 +92,14 @@ vim.keymap.set(
   "<leader>g",
   function() neogit.open({kind = "split"}) end,
   { desc = "Open Neogit UI" }
+)
+
+-- diagnostics
+vim.keymap.set(
+  "n",
+  "<leader>e",
+  vim.diagnostic.open_float,
+  { desc = "Show line diagnostics" }
 )
 
 -- The following is for airline
@@ -110,6 +121,23 @@ vim.lsp.config('*', {
 vim.lsp.enable('gopls')
 vim.lsp.enable('svelte')
 vim.lsp.enable('ts_ls')
+
+-- vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+--   pattern = "*.hcl",
+--   callback = function(args)
+--     vim.lsp.start({
+--       name = "threatcl",
+--       cmd = { "threatcl", "lsp" },
+--       root_dir = vim.fs.dirname(args.file),
+--     })
+--   end,
+-- })
+vim.lsp.config("threatcl", {
+  cmd = { "threatcl", "lsp" },
+  filetypes = { "hcl" },
+  root_markers = { ".git" },
+})
+vim.lsp.enable("threatcl")
 
 --- from https://github.com/hrsh7th/nvim-cmp/wiki/Language-Server-Specific-Samples
 local has_words_before = function()
