@@ -22,6 +22,8 @@ require("paq")({
   "nvim-tree/nvim-web-devicons",
   "nvim-treesitter/nvim-treesitter",
   "MeanderingProgrammer/render-markdown.nvim",
+  "mechatroner/rainbow_csv",
+  "stevearc/aerial.nvim",
 
   -- completions
   "hrsh7th/cmp-nvim-lsp",
@@ -77,6 +79,7 @@ map('n', '<leader>p', ':CtrlPBuffer<CR>') -- open CtrolP buffer
 map('n', '<leader>r', ':set inrelativenumber<CR>') -- toggle relative number
 map('n', '<leader>h', ':noh<CR>') -- toggle highlight
 map('n', '<leader>c', ':tabc<CR>') -- close tabs
+map('n', '<leader>a', '<cmd>AerialToggle!<CR>') -- toggle aerial
 
 -- close NERDTree then use vim-zoom to zoom current split
 map('n', '<leader>m', ':NERDTreeClose<CR> <bar> :call zoom#toggle()<CR>')
@@ -198,3 +201,23 @@ vim.api.nvim_create_autocmd("FileType", {
       pcall(vim.treesitter.start)
     end
   })
+
+-- The following QDo supports doing things like:
+-- record a macro into a (but don't save the file, the following will do it)
+-- use fzf to search for a bunch of files with target content
+-- use tab/shift-tab to select these files in fzf - then enter to populate the quickfix
+-- then `:QDo normal @a`
+vim.api.nvim_create_user_command('QDo', function(opts)
+    vim.cmd('cfdo ' .. opts.args .. ' | update')
+end, { nargs = 1 })
+
+-- stevearc/aerial
+local aerial = require('aerial')
+aerial.setup({
+  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+  on_attach = function(bufnr)
+    -- Jump forwards/backwards with '{' and '}'
+    vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+    vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+  end,
+})
